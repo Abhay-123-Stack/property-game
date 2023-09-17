@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 
 function Property({ time, rent, amount, money, setMoney, name, image }) {
@@ -65,35 +63,64 @@ function Property({ time, rent, amount, money, setMoney, name, image }) {
   }, [auto, time, money, rent, setMoney]);
 
   return (
-    <>
-      <figure>
-        <img src={`asset/${image}`} alt={name} />
+    <section className="property-container">
+      <figure className="property-figure">
+        <img
+          src={`asset/${image}`}
+          alt={name}
+        />
         <figcaption>{name}</figcaption>
       </figure>
-      <div>
-        <p>
-          level: {level} time: {time} rent: {rent} cost: {cost} inc: {inc} auto:{" "}
-          {String(auto)} tmp: {tmp.toFixed(2)}
+      <div className="property-details">
+        <p className="property-values">
+          Count: {level} Rent: {rent} Price: {cost.toFixed(2)}
         </p>
         {(isRented || auto) && (
-          <progress max={time} value={tmp} className="progress-bar" />
+          <div className="property-indicator">
+            <span className="property-timer">
+              <span>Elaspe: {tmp.toFixed(1)}</span>
+              <span>Time: {time}</span>
+            </span>
+            <progress
+              max={time}
+              value={tmp}
+              className="progress-bar"
+            />
+          </div>
         )}
       </div>
-      {isRented ? (
-        <p>Please Wait !</p>
-      ) : (
-        <p>
-          <button onClick={onBuy}>Buy</button>
-          {Boolean(level) && !auto && (
-            <span>
-              <button onClick={onRent}>Rent</button>
-              <button onClick={onManage}>Manage</button>
-            </span>
-          )}
-        </p>
-      )}
-    </>
+      <p className="property-controls-container">
+        {isRented ? (
+          "Please Wait !"
+        ) : (
+          <>
+            <button
+              className="property-control btn-buy"
+              onClick={onBuy}>
+              Buy
+            </button>
+            {Boolean(level) && !auto && (
+              <>
+                <button
+                  className="property-control btn-rent"
+                  onClick={onRent}>
+                  Rent
+                </button>
+                <button
+                  className="property-control btn-manage"
+                  onClick={onManage}>
+                  Manage
+                </button>
+              </>
+            )}
+          </>
+        )}
+      </p>
+    </section>
   );
 }
 
 export default Property;
+{
+  /*  */
+}
